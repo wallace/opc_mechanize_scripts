@@ -24,14 +24,20 @@ login_form.pwd = ENV['OPCUSA_PASSWORD']
 login_form.submit
 
 sundays.each do |day|
-  puts "creating #{day}"
-  agent.page.link_with(:text => "Publish").click
-  post_form = agent.page.form_with(:name => "post")
-  post_form.post_tag = 'oconee presbyterian church service podcast'
+  agent.page.link_with(:text => "Publish a new episode").click
+  post_form = agent.page.form_with(:action => "/admin/post.php")
+
+  # Set title
   post_form.post_title = "#{day} Sermon"
-  post_form.checkbox_with(:id => 'category-369247').check
-  post_form.checkbox_with(:id => 'category-369249').check
-  post_form.checkbox_with(:id => 'category-368932').uncheck
+
+  # Set categories
+  post_form.checkbox_with(:value => '369247 ').check
+  post_form.checkbox_with(:value => '369249 ').check
+  post_form.checkbox_with(:value => '368932 ').uncheck
+
+  # Change to draft and submit
+  post_form.buttons[0].value = "Save draft"
   post_form.submit
-  sleep 2
+
+  puts "created #{day}"
 end
