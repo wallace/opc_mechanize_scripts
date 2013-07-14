@@ -4,7 +4,7 @@ require 'date'
 require 'active_support/all'
 # require 'active_support/core_ext/time/calculations'
 
-day = ARGV[0] || Date.today
+day = Date.parse(ARGV[0]) || Date.today
 sundays = (day.beginning_of_month..day.end_of_month).select { |e| e.sunday? }.map {|e| e.strftime("%m-%d-%y") }
 
 agent = Mechanize.new
