@@ -9,9 +9,9 @@ day = (ARGV[2] || Date.today.strftime("%m-%d-%y"))
 day_link = "#{day} Sermon"
 
 agent = Mechanize.new
-agent.get("https://www.podbean.com/login")
+agent.get("http://www.podbean.com/site/user/login?return=http%3A%2F%2Fopcusa.podbean.com%2Fadmin")
 
-login_form = agent.page.form_with(:name => "loginform")
+login_form = agent.page.form_with(:id => "login-form")
 
 unless login_form
   puts "unable to find the login form"
@@ -20,8 +20,8 @@ unless login_form
   exit
 end
 
-login_form.log = ENV['OPCUSA_USERNAME']
-login_form.pwd = ENV['OPCUSA_PASSWORD']
+login_form.send('LoginForm[username]', ENV['OPCUSA_USERNAME'])
+login_form.send('LoginForm[password]', ENV['OPCUSA_PASSWORD'])
 login_form.submit
 
 agent.page.link_with(:text => "Publish").click
