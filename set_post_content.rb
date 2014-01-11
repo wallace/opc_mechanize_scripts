@@ -41,7 +41,7 @@ end
 # open up the edit page for the post
 agent.get(post_to_edit.css("a[@href*='edit']").first.attributes["href"])
 
-post_form = agent.page.form_with(:action => "/admin/post.php")
+post_form = agent.page.forms[1]
 post_form.content = "<p><em>#{sermon_title}</em></p><p>#{preacher}</p>"
 
 # Change to draft and submit

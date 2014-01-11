@@ -27,7 +27,7 @@ login_form.submit
 sundays.each do |day|
   agent.page.link_with(:text => "Publish").click
   agent.page.link_with(:text => " Publish New Episode").click
-  post_form = agent.page.form_with(:action => "/admin/post.php")
+  post_form = agent.page.form_with(:action => "http://opcusa.podbean.com/admin/post.php")
 
   # Set title
   post_form.post_title = "#{day} Sermon"
