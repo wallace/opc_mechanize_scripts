@@ -32,7 +32,7 @@ post_to_edit = nil
 tbody.children.each do |row|
   row.children.each do |column|
     if column && column.children && column.children.first &&
-      column.children.first.content =~ /#{day}/
+      column.children.any? {|e| e.content =~ /#{day}/ }
       post_to_edit = row
     end
   end
