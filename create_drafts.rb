@@ -30,16 +30,17 @@ sundays.each do |day|
   post_form = agent.page.form_with(:action => "http://opcusa.podbean.com/admin/post.php")
 
   # Set title
-  post_form.post_title = "#{day} Sermon"
+  post_form.title = "#{day} Sermon"
 
   # Set categories
-  post_form.checkbox_with(:value => '369247 ').check
-  post_form.checkbox_with(:value => '369249 ').check
-  post_form.checkbox_with(:value => '368932 ').uncheck
+  post_form.checkbox_with(:value => '369247').check
+  post_form.checkbox_with(:value => '369249').check
+  post_form.checkbox_with(:value => '368932').uncheck
 
   # Change to draft and submit
   post_form.buttons[0].value = "Save draft"
   post_form.submit
 
   puts "created #{day}"
+  sleep(rand(2))
 end
