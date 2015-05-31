@@ -25,8 +25,10 @@ login_form.send('LoginForm[password]', ENV['OPCUSA_PASSWORD'])
 login_form.submit
 
 sundays.each do |day|
-  agent.page.link_with(:text => "Publish").click
-  agent.page.link_with(:text => " Publish New Episode").click
+  post_link = agent.page.link_with(:href => "http://opcusa.podbean.com/admin/post.php")
+  post_link ||= agent.page.link_with(:href => "post.php")
+  post_link.click
+
   post_form = agent.page.form_with(:action => "http://opcusa.podbean.com/admin/post.php")
 
   # Set title
